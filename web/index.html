@@ -1,0 +1,253 @@
+<!doctype html>
+  <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Daniele Fadda">
+    <title>Understanding peacefulness through the world news</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/jumbotron/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <meta name="theme-color" content="#7952b3">
+
+
+    <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+      .two-columns {
+        column-count: 2
+      }
+    }
+  </style>
+
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@4.8.1"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@6"></script>
+</head>
+<body>
+
+  <main>
+    <div class="container-sm py-4">
+      <header class="pb-3 mb-4 border-bottom">
+        <div class="authors">
+          <span class="descriptor">Authors:</span>
+          <a href="https://kdd.isti.cnr.it/people/voukelatou-vasiliki" target="_blank">Vasiliki Voukelatou</a>, 
+          <a href="https://ioannamiliou.blogs.dsv.su.se/#page-content" target="_blank">Ioanna Miliou</a>, 
+          <a href="https://kdd.isti.cnr.it/people/giannotti-fosca" target="_blank">Fosca Giannotti</a>, 
+          <a href="https://kdd.isti.cnr.it/people/pappalardo-luca" target="_blank">Luca Pappalardo</a>. 
+          <span class="float-end">Dashboard design: <a href="https://kdd.isti.cnr.it/people/fadda-daniele" target="_blank">Daniele Fadda</a></span>
+        </div>
+      </header>
+
+      <div class="px-5 py-4 mb-4 bg-light rounded-3">
+        <div class="container-fluid">
+          <h1 class="display-5 fw-bold pt-4 pb-2">   
+           The world news tells us about peace
+         </h1>
+         <h3 class="text-muted">
+          Measuring the Global Peace Index though the world news
+        </h3>
+        <br>
+        <hr>
+        <br>
+        <div class="col-md-12 fs-6 pb-3 lh-lg two-columns">
+          <p>
+            <strong>There is not well-being without peace.</strong> Therefore, the United Nations Development Program (UNDP) has included <em>Peace, Justice, and Strong Institutions</em> in the Sustainable Development Goals (<a href="https://sdgs.un.org/goals" target="_blank">SDGs</a>)</strong> list.</p>
+          <p>Armed violence is on the rise and it is challenging to prevent it [1].         Governments and peacekeeping organisations often have little warning of abrupt changes in peace and safety, while the war expenses for the war-torn countries weaken their economies.
+          <p></p>
+            The Expert Panel on Technology and Innovation in UN Peacekeeping recognizes the importance of <strong> harnessing the data revolution for the benefit of the international community and peace</strong> [3].
+          </p>
+          <p>
+            <strong>To demonstrate the critical role of AI in accomplishing</strong> <a href="https://sdgs.un.org/goals/goal16" target="_blank">SDG 16</a>, we measure the <em>Global Peace Index</em> (GPI), an official yearly index, at a monthly frequency and we forecast the index 6 months ahead.
+          </p>    
+        </div>
+
+
+            </div>
+          </div>
+
+          <div class="row justify-content-md-center">
+            <div class="col-md-8 text-center">
+              <p class="lead">
+                The map visualises the predicted monthly Global Peace Index (GPI) as measured with the use of digital news data. We use data from the <a href="https://www.gdeltproject.org/">GDELT database</a>  to measure the yearly Global Peace Index at a monthly frequency.
+              </div>
+              <div class="col-md-12 py-4 d-flex justify-content-center">
+                <div class="shadow p-3 mb-5 bg-body rounded" id="vis"></div>
+              </div>
+              <div class="row justify-content-md-center pb-4">
+                <div class="col-md-4">
+                  <h5>Objective of the study and the map</h5>
+                </div>
+                <div class="col-md-8">
+                  <p>This map visualises the Global Peace Index monthly values as measured with the use of digital news data. In particular, we use data from the GDELT database to measure the Global Peace Index at a higher frequency. Selecting a country, either from the map or from the countries' buttons below, a user can find both the calculated from the news and the official Global Peace Index monthly values. In addition, the user can compare the predicted and the official Global Peace Index from the plots provided. Last, the user can explore the most important features related to news events that contribute to the measurement of the predicted Global Peace Index. <br>
+                    Frequent estimation updates of peace could flag conflict or war spots months in advance by revealing considerable month-to-month peace fluctuations and significant events that would be otherwise neglected. 
+                    As a consequence, we believe that this study and this dashboard is valuable to policy-makers, peacekeepers, and the scientific community. 
+                    Early warnings of peace fluctuations could be valuable for adequate policy making and for lasting peace.
+                  </p>
+                </div>
+              </div>
+              <hr>
+            </div>
+
+            <div class="row align-items-md-stretch py-5">
+              <div class="col-md-4">
+                <div>
+                  <h5>Official Code</h5>
+                </div>
+                <div class="pt-3">
+                  <p><svg xmlns="http://www.w3.org/2000/svg" class="pwc-icon" viewBox="0 0 512 512" width="30" height="30"><path d="M256 32C132.3 32 32 134.9 32 261.7c0 101.5 64.2 187.5 153.2 217.9a17.56 17.56 0 003.8.4c8.3 0 11.5-6.1 11.5-11.4 0-5.5-.2-19.9-.3-39.1a102.4 102.4 0 01-22.6 2.7c-43.1 0-52.9-33.5-52.9-33.5-10.2-26.5-24.9-33.6-24.9-33.6-19.5-13.7-.1-14.1 1.4-14.1h.1c22.5 2 34.3 23.8 34.3 23.8 11.2 19.6 26.2 25.1 39.6 25.1a63 63 0 0025.6-6c2-14.8 7.8-24.9 14.2-30.7-49.7-5.8-102-25.5-102-113.5 0-25.1 8.7-45.6 23-61.6-2.3-5.8-10-29.2 2.2-60.8a18.64 18.64 0 015-.5c8.1 0 26.4 3.1 56.6 24.1a208.21 208.21 0 01112.2 0c30.2-21 48.5-24.1 56.6-24.1a18.64 18.64 0 015 .5c12.2 31.6 4.5 55 2.2 60.8 14.3 16.1 23 36.6 23 61.6 0 88.2-52.4 107.6-102.3 113.3 8 7.1 15.2 21.1 15.2 42.5 0 30.7-.3 55.5-.3 63 0 5.4 3.1 11.5 11.4 11.5a19.35 19.35 0 004-.4C415.9 449.2 480 363.1 480 261.7 480 134.9 379.7 32 256 32z"></path></svg>
+                  <a target="_blank" href="https://github.com/VickyVouk/GDELT_GPI_SHAP_project" >Github Repository</a></p>
+                </div>
+                <div>
+                  <h5 class="pt-3">References</h5>
+                  <ol>
+                    <li>
+                      World Bank. (2018). Pathways for peace: Inclusive approaches to preventing violent conflict.
+                    </li>
+                    <li>
+                      Hillier, D. (2007). Africa's Missing Billions: International arms flows and the cost of conflict.
+                    </li>
+                    <li>
+                      Perera, S. (2017). To boldly know: Knowledge, peacekeeping and remote data gathering in conflict-affected states. International Peacekeeping, 24(5), 803-822.
+                    </li>
+                    <li>
+                      The Institute for Economics and Peace: Global Peace Index 2020 (2020)
+                    </li>
+                    <li>
+                      Leetaru, K.: The GDELT Project. <a href="https://www.gdeltproject.org">LINK</a> (2013)
+                    </li>
+                    <li>
+                      Lundberg, S. M., & Lee, S. I. (2017, December). A unified approach to interpreting model predictions. In Proceedings of the 31st international conference on neural information processing systems (pp. 4768-4777)
+                    </li>
+                    <li>
+                      Schrodt, P. A. (2012). Cameo: Conflict and mediation event observations event and actor codebook. Pennsylvania State University.
+                    </li>
+                  </ol>
+                </div>
+              </div>
+
+              <div class="col-md-8">
+                <div class="p-5 bg-light border rounded-3">
+                  <h4 class="pb-3">Frequently Asked Questions</h4>
+
+                  <div class="accordion" id="accordionExample">
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          Where can I find the publications?
+                        </button>
+                      </h2>
+                      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          The scientific papers can be found below:
+                          <ul>
+                            <li>Voukelatou, V., Pappalardo, L., Miliou, I., Gabrielli, L., & Giannotti, F. (2020, October). Estimating countries’ peace index through the lens of the world news as monitored by GDELT. In 2020 IEEE 7th International Conference on Data Science and Advanced Analytics (DSAA) (pp. 216-225). IEEE. <a href="https://ieeexplore.ieee.org/abstract/document/9260052" target="_blank">LINK</a></li>
+                            <li>Voukelatou, V., Miliou, I., Giannotti, F., & Pappalardo, L. (2021). Understanding peacefulness through the world news. arXiv preprint arXiv:2106.00306. <a href="https://arxiv.org/abs/2106.00306" target="_blank">LINK</a></li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                          What is the Global Peace Index?
+                        </button>
+                      </h2>
+                      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          The Global Peace Index is the world's leading measurement of national peacefulness, produced by the Institute for Economics and Peace. The Global Peace Index is captured yearly by institutional surveys and governmental data, such as economic data, police data, etc. [4]. The score for each country is continuous, normalized on a scale of 1 to 5, where the higher the score, the less peaceful a country is. For example, in 2019, Iceland has been the most peaceful country with GPI = 1.072, whereas Somalia has been the least peaceful country with GPI = 3.574. The index is constructed from 23 indicators related to Ongoing Domestic and International Conflict, Societal Safety and Security, and Militarisation domains [4], such as <em>Number of Internal Security Officers and Police per 100,000 People</em>, <em>Exhibit military or police power</em>, etc.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                          What is GDELT and how do you extract the variables?
+                        </button>
+                      </h2>
+                      <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          The Global Data on Events, Location, and Tone database (GDELT) is a major news data source that describes the worldwide socio-economic and political situation through the eyes of the news media, making it ideal for measuring well-being and peace [5]. For the prediction of GPI, we derive several variables from GDELT. These variables correspond to the total number of events (No. events) of each GDELT category at country and monthly level. For example, the GDELT variable No. events related to “Exhibit military or police power'' could cover the GPI indicator “Number of Internal Security Officers and Police per 100,000 People''. In addition, the GDELT variables No. events related to “Fight with small arms and light weapons'' and No. events related to “Use conventional military force'' could cover the GPI indicators “Ease of Access to Small Arms and Light Weapons'' and “Volume of Transfers of Major Conventional Weapons, as recipient (imports) per 100,000 people''. <br>We extract the GDELT variables for the models using the <a href="https://cloud.google.com/bigquery" target="_blank">Google Big Query</a>.
+
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingFive">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                          * How do you calculate the most important variables?
+                        </button>
+                      </h2>
+                      <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          The most important variables visualized are calculated through the Average Gain, which is used by the XGBoost models and it is the average improvement in model fit each time the feature is used in the trees. In the paper, we present the feature importance as calculated with the Shapley Additive Explanations (SHAP) [6]. This is the reason you might notice small differences between the feature importance plots visualized in the dashboard and the paper.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingSix">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseFive">
+                          Where can I find the variables’ codebook with detailed explanations?
+                        </button>
+                      </h2>
+                      <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          The Cameo manual [7] presents all the variables used from GDELT and gives an extended explanation with the relevant examples. In this study we use the 3 digits codes. For example, the news text “...East German Foreign Minister Oskar Fischer will visit Albania in June, the first Warsaw Pact foreign minister to do so since Tirana split with Moscow in 1961, the Albanian embassy said…” is labelled as an “Express intent to meet or negotiate” event. We extract the GDELT variables for the models using the <a href="https://cloud.google.com/bigquery" target="_blank">Google Big Query</a>.
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header" id="headingFour">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                          What models and training period do you use?
+                        </button>
+                      </h2>
+                      <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                          We apply predictive machine learning models to demonstrate that news media attention from GDELT can be used as a proxy for measuring GPI at a monthly level. XGBoost shows the highest model performance and thus the values visualised on the map are produced from the XGBoost models. The training's set period for each prediction is 6 years, i.e., 72 months.
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
+                </div>
+              </div>
+
+            </div>
+
+            <footer class="pt-3 mt-4 text-muted border-top text-end">
+              <div>this dashboard was made using the <a href="https://scholar.google.it/scholar?q=VanderPlas+et+al.+Altair:+Interactive+Statistical+Visualizations+for+Python.+Journal+of+Open+Source+Software+(2018%3B+in+prep)&hl=it&as_sdt=0&as_vis=1&oi=scholart" target="_blank">Altair</a> library </div>
+              Dashboard design by <a href="https://kdd.isti.cnr.it/people/fadda-daniele">Daniele Fadda</a> 
+            </footer>
+          </div>
+        </main>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        <script src="chart.js"></script>
+      </body>
+      </html>
