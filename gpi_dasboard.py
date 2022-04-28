@@ -6,6 +6,7 @@ import geopandas as gpd
 import re
 import math
 from dateutil.relativedelta import *
+
 # exclude max rows limit
 alt.data_transformers.enable('default', max_rows=None)
 
@@ -109,7 +110,7 @@ def create_final_chart():
     # Selectors:
     click_time = alt.selection_single(empty='none', init={'MonthYear': 201909}, on='mouseover', nearest=True,
                                       fields=['MonthYear'])
-    click_country = alt.selection_single(empty='none', init={'country_code': 'US', 'country_name': 'United States'},
+    click_country = alt.selection_single(empty='none', init={'country_code': 'UP', 'country_name': 'Ukraine'},
                                          fields=['country_code', 'country_name'])
 
     timeline = alt.Chart(dates).mark_square(
@@ -142,6 +143,27 @@ def create_final_chart():
         strokeWidth=0.5,
         cursor='pointer'
     ).encode(
+        stroke=alt.condition(click_country,
+                             alt.value('#4f4f4f'),
+                             alt.Color(
+                                 'Predicted GPI:Q',
+                                 scale=alt.Scale(
+                                     scheme='purpleorange',
+                                     reverse=True,
+                                     type='threshold',
+                                     domain=[1.47, 1.9, 2.35, 2.9]
+                                 ), legend=alt.Legend(
+                                     orient='none',
+                                     direction='horizontal',
+                                     title='← More Peace         GPI         Less Peace →',
+                                     titleAnchor='middle',
+                                     titleLimit=250,
+                                     gradientLength=250,
+                                     legendX=300,
+                                     legendY=320
+                                 )
+                             )
+                             ),
         color=alt.condition(click_country,
                             alt.value('#4f4f4f'),
                             alt.Color(
@@ -333,7 +355,7 @@ def create_final_chart():
     ).transform_filter(
         click_country
     ).transform_filter(
-        alt.datum.MonthYear >= '201909'
+        alt.datum.MonthYear >= '202103'
     ).encode(
         x=alt.X('date:T', title=None),
         y=alt.Y('Predicted GPI:Q', title=None, scale=alt.Scale(zero=False), axis=alt.Axis(gridColor='white'))
@@ -347,7 +369,7 @@ def create_final_chart():
     ).transform_filter(
         click_country
     ).transform_filter(
-        alt.datum.MonthYear >= '201909'
+        alt.datum.MonthYear >= '202103'
     ).transform_filter(
         click_time
     ).mark_rule(
@@ -360,7 +382,7 @@ def create_final_chart():
     text_ruler_y = mark_line.mark_text(
         align='left', dx=5, dy=-5
     ).transform_filter(
-        alt.datum.MonthYear >= '201909'
+        alt.datum.MonthYear >= '202103'
     ).encode(
         text=alt.Text('date:T', format='%b, %Y')
     )
