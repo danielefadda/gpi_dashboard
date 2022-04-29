@@ -1,15 +1,54 @@
-# GPI dashboard prediction
+# An interactive dashboard for monitoring and understanding peace through time
 ## The world news tells us about peace
 
-This is a dashboard to support the research paper: _Estimating countries’ peace index through the lens of the world news as monitored by GDELT_ (paper code can be found [here](https://github.com/VickyVouk/GDELT_GPI_SHAP_project)).
 
-The dashboard synthesizes the most crucial information for the policy-makers and peace-keepers, avoiding complicated academic data visualization, and thus minimizing the cognitive load.
+## Table of contents  
+1. [Citing](#Citing)
+2. [Abstract](#Abstract) 
+3. [Data pre-processing and machine-learning](#Code_pre_mach)
+4. [Visualization](#Code_dashboard)
+6. [Demonstration of the dashboard](#demonstration_video)
 
-The link to the dashboard can be found [here](https://kdd.isti.cnr.it/~dfadda/gpi_prediction/). Telling the story of the paper results produced through this dashboard aims to maintain the messages clear and coherent, providing time for processing and reflection, with the use of specific examples.
+## Citing
+<a name="Citing"/>
 
-### Installation
-This ``git`` repository contains the ``gpi_dasboard.py`` file to load the precalculated data you can find in the ``all_countries_xgb_results.csv`` file and generate the dashboard. You can find the dashboard in the ``web`` folder opening the ``index.html`` file.
+If you use our code for the dashboard, please cite our paper:
 
-*This dashboard was made using the Altair library*
+Fadda, D., Pappalardo, L., and Voukelatou, V. (2022). An interactive dashboard for monitoring and understanding peace through time.
 
-![img](https://github.com/danielefadda/gpi_dashboard/blob/cbcd00dc9b397275a80c676076e2dcf2c87df75e/GPI%20Dashboard%20example.png)
+`@article{fadda2022dashboard, `<br/>
+  `title={ An interactive dashboard for monitoring and understanding peace through time},` <br/>
+  `author={Fadda, Daniele, Lappalardo, Luca, and Voukelatou, Vasiliki},` <br/>
+ ` year={2022}
+} `
+
+
+## Abstract
+<a name="Abstract"/>
+
+Using python language we developed a dashboard, which mainly visualizes a global map with peace fluctuations at a monthly and country level. Between others, the dashboard provides monthly peace fluctuations even up to 6-months-ahead and the determinants of peace over the months. We also provide the corresponding code for reproducing and updating the dashboard.
+
+This work has been supported by EU project H2020 [SoBigData++](https://cordis.europa.eu/project/id/871042) #87104
+
+## Data pre-processing and machine-learning
+<a name="Code_pre_mach"/>
+
+This dashboard is created for the visualization of the results of the research paper: Voukelatou, V., Miliou, I., Giannotti, F., & Pappalardo, L. (2022). Understanding peace through the world news https://epjdatascience.springeropen.com/articles/10.1140/epjds/s13688-022-00315-z.
+Therefore, the pre-processing and machine learning of the data can be reproduced using the code and the data found in the **folder** called `dashbord` in the github repository of the paper: https://github.com/VickyVouk/GDELT_GPI_SHAP_project. 
+The final objective is to create the ETL (``Extract, Transform, Load'') CSV document. This CSV includes all relevant data to load on the dashboard. The CSV includes the official and predicted GPI values and the features that contribute to the predictions. 
+
+
+## Visualization
+<a name="Code_dashboard"/>
+
+To generate the dashboard you need to load the CSV file called `all_countries_for_dashboard.csv` on the `gpi_dasboard.py` file.
+You can find the dashboard in the ``web`` folder opening the ``index.html`` file. <br>
+An online version of the dashboard can be found in: http://experiments.sobigdata.eu/gpi_prediction/
+
+More details: The python script based on **Altair (a Declarative Visualization library)** loads and manipulates the CSV dataset and creates all the visualization elements of the dashboard. This process does not demand a server to dispatch the data, and it allows a non-expert user to easily develop and update the dashboard . 
+
+## Demonstration of the dashboard
+<a name="demonstration_video"/>
+
+A demonstration video of our dashboard can be accessed via: www.youtube
+
