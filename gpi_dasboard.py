@@ -10,20 +10,24 @@ from dateutil.relativedelta import *
 # exclude max rows limit
 alt.data_transformers.enable('default', max_rows=None)
 
-csvName = 'all_countries_xgb_results.csv'
+# The following csv file is the result of the machine learning process
+# that can be generated using the code from this repository:
+# https://github.com/VickyVouk/GDELT_GPI_SHAP_project
+csvName = 'all_countries_for_dashboard.csv'
+
 dataFile = pd.read_csv(csvName)
 dataGPI = dataFile.iloc[:, 0:5]
 dataGPI = dataGPI.rename(
-    columns={"GPI_score": "Real GPI", "gpi_predicted": "Predicted GPI"}
+    columns={"GPI_score": "Official GPI", "gpi_predicted": "Predicted GPI"}
 )
 dataGPI['date'] = pd.to_datetime(dataGPI['MonthYear'], format='%Y%m')
 dataGPI['year'] = dataGPI['MonthYear'].apply(str).str[:4]
 dataGPI['month'] = dataGPI['MonthYear'].apply(str).str[-2:]
 dataGPI['month_str'] = dataGPI['date'].dt.month_name()
-dataGPI['Real GPI'] = dataGPI['Real GPI'].round(3)
+dataGPI['Official GPI'] = dataGPI['Official GPI'].round(3)
 dataGPI['Predicted GPI'] = dataGPI['Predicted GPI'].round(3)
 dataGPI['delta_perc'] = ((dataGPI['Predicted GPI'] -
-                          dataGPI['Real GPI']) / dataGPI['Real GPI'] * 100).round(4)
+                          dataGPI['Official GPI']) / dataGPI['Official GPI'] * 100).round(4)
 
 # Shapefile of the world (enriched)
 geoLayer = gpd.read_file('world_countries_geo.json')
@@ -103,7 +107,7 @@ for i, row in dataLegend.iterrows():
 
 def create_final_chart():
     colors_gpi = alt.Scale(
-        domain=['Real GPI', 'Predicted GPI'],
+        domain=['Official GPI', 'Predicted GPI'],
         range=['#4f4f4f', '#72a35a']
     )
 
@@ -139,33 +143,12 @@ def create_final_chart():
         lookup='country_code',
         from_=alt.LookupData(geoLayer, key='FIPS', fields=['FIPS', 'geometry', 'type', 'name'])
     ).mark_geoshape(
-        stroke='gray',
+        stroke='darkgray',
         strokeWidth=0.5,
         cursor='pointer'
     ).encode(
-        stroke=alt.condition(click_country,
-                             alt.value('#4f4f4f'),
-                             alt.Color(
-                                 'Predicted GPI:Q',
-                                 scale=alt.Scale(
-                                     scheme='purpleorange',
-                                     reverse=True,
-                                     type='threshold',
-                                     domain=[1.47, 1.9, 2.35, 2.9]
-                                 ), legend=alt.Legend(
-                                     orient='none',
-                                     direction='horizontal',
-                                     title='← More Peace         GPI         Less Peace →',
-                                     titleAnchor='middle',
-                                     titleLimit=250,
-                                     gradientLength=250,
-                                     legendX=300,
-                                     legendY=320
-                                 )
-                             )
-                             ),
-        color=alt.condition(click_country,
-                            alt.value('#4f4f4f'),
+        stroke=alt.condition(click_country, alt.value('black'), alt.value('darkgray')),
+        color=
                             alt.Color(
                                 'Predicted GPI:Q',
                                 scale=alt.Scale(
@@ -183,12 +166,11 @@ def create_final_chart():
                                     legendX=300,
                                     legendY=320
                                 )
-                            )
                             ),
         tooltip=[
             alt.Text('name:N', title='Country'),
             alt.Text('Predicted GPI:Q', format=',.3f', title='Predicted GPI'),
-            alt.Text('Real GPI:Q', format=',.3f', title='Real GPI'),
+            alt.Text('Official GPI:Q', format=',.3f', title='Official GPI'),
         ]
     ).add_selection(
         click_country
@@ -232,7 +214,7 @@ def create_final_chart():
     ).transform_filter(
         click_country
     ).transform_fold(
-        fold=['Predicted GPI', 'Real GPI'],
+        fold=['Predicted GPI', 'Official GPI'],
         as_=['GPI', 'value']
     ).encode(
         x=alt.X('date:T', title=None),
@@ -250,7 +232,7 @@ def create_final_chart():
         click_country
     ).encode(
         x=alt.X('date:T', title=None),
-        y=alt.Y('Real GPI:Q', title=None, scale=alt.Scale(zero=False)),
+        y=alt.Y('Official GPI:Q', title=None, scale=alt.Scale(zero=False)),
         y2=alt.Y2('Predicted GPI:Q')
     )
 
@@ -281,13 +263,13 @@ def create_final_chart():
     )
 
     gpi_score = gpi_score.properties(
-        title='GPI Real and Predicted',
+        title='Official and Predicted GPI',
         height=100,
         width=350
     )
 
     gpi_area = gpi_area.properties(
-        title=alt.TitleParams(text='Real VS Predicted GPI', fontWeight="normal"),
+        title=alt.TitleParams(text='Official VS Predicted GPI', fontWeight="normal"),
         height=100,
         width=350
     )
@@ -300,7 +282,7 @@ def create_final_chart():
         'datum.month=="03"'
     ).encode(
         x=alt.X('date:T', title=None),
-        y=alt.Y('Real GPI:Q', title=None, scale=alt.Scale(zero=False)),
+        y=alt.Y('Official GPI:Q', title=None, scale=alt.Scale(zero=False)),
     )
 
     rect = alt.Chart(timeSpan).mark_rect(
