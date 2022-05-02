@@ -112,9 +112,9 @@ def create_final_chart():
     )
 
     # Selectors:
-    click_time = alt.selection_single(empty='none', init={'MonthYear': 201909}, on='mouseover', nearest=True,
+    click_time = alt.selection_single(empty='none', init={'MonthYear': 202103}, on='mouseover', nearest=True,
                                       fields=['MonthYear'])
-    click_country = alt.selection_single(empty='none', init={'country_code': 'UP', 'country_name': 'Ukraine'},
+    click_country = alt.selection_single(empty='none', init={'country_code': 'US', 'country_name': 'United States'},
                                          fields=['country_code', 'country_name'])
 
     timeline = alt.Chart(dates).mark_square(
@@ -133,7 +133,7 @@ def create_final_chart():
         fill='lightgrey', stroke='white', strokeWidth=.5  # lightgrey
     ).project(
         type='mercator',
-        scale=100,
+        scale=90,
         translate=[300, 220]
     )
 
@@ -142,6 +142,8 @@ def create_final_chart():
     ).transform_lookup(
         lookup='country_code',
         from_=alt.LookupData(geoLayer, key='FIPS', fields=['FIPS', 'geometry', 'type', 'name'])
+    ).transform_calculate(
+    A="isValid(datum['Official GPI']) ? datum['Official GPI'] : 'Not availlable'"
     ).mark_geoshape(
         stroke='darkgray',
         strokeWidth=0.5,
@@ -149,28 +151,28 @@ def create_final_chart():
     ).encode(
         stroke=alt.condition(click_country, alt.value('black'), alt.value('darkgray')),
         color=
-                            alt.Color(
-                                'Predicted GPI:Q',
-                                scale=alt.Scale(
-                                    scheme='purpleorange',
-                                    reverse=True,
-                                    type='threshold',
-                                    domain=[1.47, 1.9, 2.35, 2.9]
-                                ), legend=alt.Legend(
-                                    orient='none',
-                                    direction='horizontal',
-                                    title='← More Peace         GPI         Less Peace →',
-                                    titleAnchor='middle',
-                                    titleLimit=250,
-                                    gradientLength=250,
-                                    legendX=300,
-                                    legendY=320
-                                )
-                            ),
+        alt.Color(
+            'Predicted GPI:Q',
+            scale=alt.Scale(
+                scheme='purpleorange',
+                reverse=True,
+                type='threshold',
+                domain=[1.47, 1.9, 2.35, 2.9]
+            ), legend=alt.Legend(
+                orient='none',
+                direction='horizontal',
+                title='← More Peace         GPI         Less Peace →',
+                titleAnchor='middle',
+                titleLimit=250,
+                gradientLength=250,
+                legendX=300,
+                legendY=320
+            )
+        ),
         tooltip=[
             alt.Text('name:N', title='Country'),
             alt.Text('Predicted GPI:Q', format=',.3f', title='Predicted GPI'),
-            alt.Text('Official GPI:Q', format=',.3f', title='Official GPI'),
+            alt.Text('A:N', title='Official GPI'),
         ]
     ).add_selection(
         click_country
@@ -305,7 +307,7 @@ def create_final_chart():
         height=380,
     ).project(
         type='mercator',
-        scale=100,
+        scale=90,
         # center=[-130,75]
         translate=[300, 220]
     )
