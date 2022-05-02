@@ -146,7 +146,6 @@ def create_final_chart():
     A="isValid(datum['Official GPI']) ? datum['Official GPI'] : 'Not availlable'"
     ).mark_geoshape(
         stroke='darkgray',
-        strokeWidth=0.5,
         cursor='pointer'
     ).encode(
         stroke=alt.condition(click_country, alt.value('black'), alt.value('darkgray')),
@@ -177,6 +176,33 @@ def create_final_chart():
     ).add_selection(
         click_country
     )
+
+    selected_country = alt.Chart(dataGPI).transform_filter(
+        click_time
+    ).transform_filter(
+        click_country
+    ).transform_lookup(
+        lookup='country_code',
+        from_=alt.LookupData(geoLayer, key='FIPS', fields=['FIPS', 'geometry', 'type', 'name'])
+    ).transform_calculate(
+    A="isValid(datum['Official GPI']) ? datum['Official GPI'] : 'Not availlable'"
+    ).mark_geoshape(
+        stroke='Black',
+        fill=None,
+        cursor='pointer'
+    ).encode(
+        tooltip=[
+            alt.Text('name:N', title='Country'),
+            alt.Text('Predicted GPI:Q', format=',.3f', title='Predicted GPI'),
+            alt.Text('A:N', title='Official GPI'),
+        ]
+    ).project(
+        type='mercator',
+        scale=90,
+        # center=[-130,75]
+        translate=[300, 220]
+    )
+
 
     zero_line = alt.Chart(pd.DataFrame({'y': [0]})).mark_rule(
         strokeDash=[10, 3],
@@ -447,7 +473,7 @@ def create_final_chart():
     entire_dashboard = (
             (rect + timeline) &
             (
-                    (base + world_map) & (left_line | country_selector) |
+                    (base + world_map + selected_country) & (left_line | country_selector) |
                     (text_country & gpi_chart & prediction_chart_y & gpi_time & ranking)
             )
 
