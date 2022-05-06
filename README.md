@@ -14,11 +14,11 @@
 
 If you use our code for the dashboard, please cite our paper:
 
-Fadda, D., Pappalardo, L., and Voukelatou, V. (2022). An interactive dashboard for monitoring and understanding peace through time.
+Fadda, D., Giannotti, F., Pappalardo, L., and Voukelatou, V. (2022). An interactive dashboard for monitoring and understanding peace through time.
 
 `@article{fadda2022dashboard, `<br/>
   `title={ An interactive dashboard for monitoring and understanding peace through time},` <br/>
-  `author={Fadda, Daniele, Lappalardo, Luca, and Voukelatou, Vasiliki},` <br/>
+  `author={Fadda, Daniele, Giannotti, F., Pappalardo, Luca, and Voukelatou, Vasiliki},` <br/>
  ` year={2022}
 } `
 
