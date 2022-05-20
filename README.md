@@ -50,11 +50,11 @@ More details: The python script based on **Altair (a Declarative Visualization l
 ## Demonstration of the dashboard
 <a name="demonstration_video"/>
 
-The dashboard allows users to monitor and understand peace for all countries interactively. It is publicly available at: \url{http://experiments.sobigdata.eu/gpi_prediction/}.<br>
+The dashboard allows users to monitor and understand peace for all countries interactively. It is publicly available at: http://experiments.sobigdata.eu/gpi_prediction/.<br>
 We propose two main filtering dimensions: temporal, to select a specific time instant; spatial, to choose a specific country. The selections can be combined. The visual widgets of the dashboard are organized into a grid (Figure 1): **Timeline selector (a)**, **Geographic view (b)**, **Geographic selection (b)-(c)**, **Time series view (d1-3)**, **Feature importance view (e)**. 
 <br>
 
-![grid_dashboard](<img width="937" alt="Screen Shot 2022-05-20 at 9 28 45 AM" src="https://user-images.githubusercontent.com/35956507/169476649-60e3714a-2c3e-4848-8141-1ec4115ea2b3.png">)
+<img width="937" alt="Screen Shot 2022-05-20 at 9 28 45 AM" src="https://user-images.githubusercontent.com/35956507/169476815-b74a65a7-5a3a-466b-8c23-11248cee6291.png">
 
 <sup>Figure 1. The grid of the dashboard visualizing the country of Ukraine. </sup>
 
