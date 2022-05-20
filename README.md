@@ -54,9 +54,9 @@ The dashboard allows users to monitor and understand peace for all countries int
 We propose two main filtering dimensions: temporal, to select a specific time instant; spatial, to choose a specific country. The selections can be combined. The visual widgets of the dashboard are organized into a grid (Figure 1): **Timeline selector (a)**, **Geographic view (b)**, **Geographic selection (b)-(c)**, **Time series view (d1-3)**, **Feature importance view (e)**. 
 <br>
 
-![grid_dashboard](https://user-images.githubusercontent.com/35956507/165980529-9bd7773e-a81c-46c7-8f14-400ea640cc47.png)
+![grid_dashboard](<img width="937" alt="Screen Shot 2022-05-20 at 9 28 45 AM" src="https://user-images.githubusercontent.com/35956507/169476649-60e3714a-2c3e-4848-8141-1ec4115ea2b3.png">)
 
 <sup>Figure 1. The grid of the dashboard visualizing the country of Ukraine. </sup>
 
-Also, the dashboard provides the user with all the information which might be useful. For example, the github repository for code reproducibility, important references, and frequently asked questions. Below follows a **demonstration video** of our dashboard which can be accessed via: www.youtube
+Also, the dashboard provides the user with all the information which might be useful. For example, the github repository for code reproducibility, important references, and frequently asked questions. Below follows a **demonstration video** of our dashboard which can be accessed via: https://www.youtube.com/watch?v=20LTkVXLcok
 
